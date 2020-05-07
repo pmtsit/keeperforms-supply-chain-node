@@ -1,0 +1,82 @@
+{
+  "name": "keeperforms-supply-chain",
+  "description": "A KeeperForms supply chain helper library",
+  "version": "0.0.1",
+  "author": "Open Source Team <opensource@pmtsit.com>",
+  "homepage": "https://pmtsit.com",
+  "keywords": [
+    "keeper",
+    "keeperforms",
+    "supply chain",
+    "pmtsit",
+    "node",
+    "nodejs",
+    "api",
+    "rest",
+    "prometheus"
+  ],
+  "contributors": [
+    {
+      "name": "keeperforms-supply-chain-node contributors",
+      "url": "https://github.com/pmtsit/keeperforms-supply-chain-node/graphs/contributors"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pmtsit/keeperforms-supply-chain-node.git"
+  },
+  "dependencies": {
+    "@types/node": "^12.11.7",
+    "axios": "^0.19.0",
+    "class-transformer": "^0.2.3",
+    "custom-error-generator": "^7.0.0",
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "moment": "^2.24.0",
+    "moment-timezone": "latest",
+    "node-fetch": "^2.6.0",
+    "object-assign": "^4.1.1",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/debug": "^4.1.5",
+    "@types/jest": "^24.0.18",
+    "@types/moment-timezone": "^0.5.12",
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.6.0",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.6.0",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.19.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "sample": "node samples/getWarehouses.js",
+    "test": "DEBUG=keeperforms* jest --config jestconfig.json",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "prepare": "npm run build",
+    "prepublishOnly": "",
+    "prepublishOnly111": "npm test && npm run lint",
+    "postPublish": "npm version patch",
+    "preversion1": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "lint": "tslint -p tsconfig.json"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "engines": {
+    "node": ">=6.0"
+  },
+  "license": "MIT"
+}
