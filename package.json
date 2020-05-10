@@ -1,7 +1,7 @@
 {
   "name": "keeperforms-supply-chain",
   "description": "A KeeperForms supply chain helper library",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "author": "Open Source Team <opensource@pmtsit.com>",
   "homepage": "https://pmtsit.com",
   "keywords": [

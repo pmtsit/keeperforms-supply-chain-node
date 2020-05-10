@@ -1,20 +1,30 @@
 import SupplyChainClient from '../index';
-import { Warehouse } from '../models/warehouse';
+import { Workspace } from '../models/warehouse';
 
 let supplyChainClient: SupplyChainClient;
-let warehouses: Warehouse[] = [];
+let warehouses: Workspace[] = [];
 let originalNumberOfItems: number = 0;
 
-let createdItem: Warehouse | null = null;
+let createdItem: Workspace | null = null;
 let itemName: string;
 let itemDescription: string;
 
 describe('Warehouses Service Test', () => {
-  beforeAll(() => {
-    supplyChainClient = new SupplyChainClient('uris', process.env.TOKEN!);
+  beforeAll(async () => {
+    supplyChainClient = new SupplyChainClient(process.env.USERNAME || '[USERNAME]', process.env.TOKEN || '');
 
     if (process.env.SERVER_URL) {
       supplyChainClient.setBaseUrl(process.env.SERVER_URL);
+    }
+
+    if (process.env.USERNAME && process.env.PASSWORD) {
+      const loginResult = await supplyChainClient.account.login({
+        username: process.env.USERNAME!,
+        password: process.env.PASSWORD!,
+      });
+
+      expect(loginResult).toBeDefined();
+      expect(loginResult?.accessToken).toBeDefined();
     }
   });
 

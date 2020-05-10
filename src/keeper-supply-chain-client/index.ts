@@ -1,9 +1,13 @@
 import axios, { AxiosInstance } from 'axios';
 import createDebug from 'debug';
+import AccountService from '../services/account';
 import WarehouseService from '../services/warehouses';
+import ItemService from '../services/items';
 
 export default class SupplyChainClient {
+  public readonly account: AccountService;
   public readonly warehouses: WarehouseService;
+  public readonly items: ItemService;
   private readonly debug = createDebug('keeper-supply-chain-client');
   private readonly axios?: AxiosInstance;
   private readonly username: string;
@@ -24,6 +28,8 @@ export default class SupplyChainClient {
       timeout: 5000,
     });
 
+    this.account = new AccountService(this, this.axios);
+    this.items = new ItemService(this.axios);
     this.warehouses = new WarehouseService(this.axios);
   }
 

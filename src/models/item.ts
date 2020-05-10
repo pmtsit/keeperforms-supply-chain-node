@@ -1,6 +1,6 @@
 import { Expose, Type } from 'class-transformer';
 
-export class Workspace {
+export class Item {
   public id: string;
   public name: string;
   public description?: string;
