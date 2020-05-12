@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { Workspace } from '../../models/warehouse';
+import { Warehouse } from '../../models/warehouse';
 import BaseService from '../base';
 import { classToPlain, Expose, plainToClass } from 'class-transformer';
 
@@ -35,39 +35,39 @@ export class PatchWarehouseParams implements IPatchWarehouseParams {
   }
 }
 
-export default class WarehouseService extends BaseService<Workspace> {
+export default class WarehouseService extends BaseService<Warehouse> {
   constructor(axios: AxiosInstance) {
     super(axios, '/warehouses');
   }
 
-  public async list(offset?: number, limit?: number): Promise<Workspace[]> {
+  public async list(offset?: number, limit?: number): Promise<Warehouse[]> {
     const result = await super._list(offset, limit);
 
-    const warehouses = result ? plainToClass(Workspace, result) : [];
+    const warehouses = result ? plainToClass(Warehouse, result) : [];
 
     return warehouses;
   }
 
-  public async get(id: string): Promise<Workspace | null> {
+  public async get(id: string): Promise<Warehouse | null> {
     const result = await super._get(id);
 
-    const warehouse = result ? plainToClass(Workspace, result) : null;
+    const warehouse = result ? plainToClass(Warehouse, result) : null;
 
     return warehouse;
   }
 
-  public async create(params: ICreateWarehouseParams): Promise<Workspace | null> {
+  public async create(params: ICreateWarehouseParams): Promise<Warehouse | null> {
     const result = await super._create(classToPlain(new CreateWarehouseParams(params)));
 
-    const warehouse = result ? plainToClass(Workspace, result) : null;
+    const warehouse = result ? plainToClass(Warehouse, result) : null;
 
     return warehouse;
   }
 
-  public async patch(id: string, params: IPatchWarehouseParams): Promise<Workspace | null> {
+  public async patch(id: string, params: IPatchWarehouseParams): Promise<Warehouse | null> {
     const result = await super._patch(id, classToPlain(new PatchWarehouseParams(params)));
 
-    const warehouse = result ? plainToClass(Workspace, result) : null;
+    const warehouse = result ? plainToClass(Warehouse, result) : null;
 
     return warehouse;
   }

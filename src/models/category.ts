@@ -1,8 +1,9 @@
 import { Expose, Type } from 'class-transformer';
 
-export class Warehouse {
+export class Category {
   public id: string;
   public name: string;
+  public parent?: Category;
   public description?: string;
   public image?: string;
 }

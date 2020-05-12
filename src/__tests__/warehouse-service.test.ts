@@ -1,11 +1,11 @@
 import SupplyChainClient from '../index';
-import { Workspace } from '../models/warehouse';
+import { Warehouse } from '../models/warehouse';
 
 let supplyChainClient: SupplyChainClient;
-let warehouses: Workspace[] = [];
+let warehouses: Warehouse[] = [];
 let originalNumberOfItems: number = 0;
 
-let createdItem: Workspace | null = null;
+let createdItem: Warehouse | null = null;
 let itemName: string;
 let itemDescription: string;
 
@@ -43,7 +43,7 @@ describe('Warehouses Service Test', () => {
       Math.floor((Math.random() + 1) * 1000)
         .toString()
         .padStart(4, '0');
-    itemDescription = 'A workspace created from the test suite';
+    itemDescription = 'A warehouse created from the test suite';
     createdItem = await supplyChainClient.warehouses.create({
       name: itemName,
       description: itemDescription,

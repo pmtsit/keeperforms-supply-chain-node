@@ -1,12 +1,12 @@
 import { Expose, Type } from 'class-transformer';
 import {Product} from './product';
-import {Variant} from './variant';
+import {VariantAttribute} from './variant-attribute';
 
-export class Item {
+export class Variant {
   public id: string;
   public name: string;
+  public product: Product;
   public description?: string;
   public image?: string;
-  public product: Product;
-  public variant?: Variant;
+  public attributes?: VariantAttribute[];
 }
