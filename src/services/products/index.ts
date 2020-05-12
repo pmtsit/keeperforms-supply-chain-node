@@ -8,6 +8,7 @@ export interface ICreateProductParams {
   category?: string;
   description?: string;
   image?: string;
+  attributes?: string[];
 }
 
 export class CreateProductParams implements ICreateProductParams {
@@ -15,6 +16,7 @@ export class CreateProductParams implements ICreateProductParams {
   public category?: string;
   public description?: string;
   public image?: string;
+  public attributes?: string[];
 
   constructor(createProductParams: ICreateProductParams) {
     Object.assign(this, createProductParams);
@@ -26,6 +28,7 @@ export interface IPatchProductParams {
   category?: string;
   description?: string;
   image?: string;
+  attributes?: string[];
 }
 
 export class PatchProductParams implements IPatchProductParams {
@@ -33,6 +36,7 @@ export class PatchProductParams implements IPatchProductParams {
   public category?: string;
   public description?: string;
   public image?: string;
+  public attributes?: string[];
 
   constructor(iPatchProductParams: IPatchProductParams) {
     Object.assign(this, iPatchProductParams);

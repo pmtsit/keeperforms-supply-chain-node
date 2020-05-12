@@ -3,11 +3,26 @@ import BaseService from '../base';
 import {Variant} from '../../models/variant';
 import { classToPlain, Expose, plainToClass } from 'class-transformer';
 
+export interface IVariantAttributeItem {
+  attribute: string;
+  value?: string;
+}
+
+export class VariantAttributeItem implements IVariantAttributeItem {
+  public attribute: string;
+  public value?: string;
+
+  constructor(variantAttributeItem: IVariantAttributeItem) {
+    Object.assign(this, variantAttributeItem);
+  }
+}
+
 export interface ICreateVariantParams {
   name: string;
   product?: string;
   description?: string;
   image?: string;
+  attributes?: IVariantAttributeItem[];
 }
 
 export class CreateVariantParams implements ICreateVariantParams {
@@ -15,9 +30,22 @@ export class CreateVariantParams implements ICreateVariantParams {
   public product?: string;
   public description?: string;
   public image?: string;
+  public attributes?: IVariantAttributeItem[];
 
   constructor(createVariantParams: ICreateVariantParams) {
-    Object.assign(this, createVariantParams);
+    let _createVariantParams = createVariantParams;
+    let _attributes: VariantAttributeItem[] | null = null;
+
+    if (createVariantParams.attributes) {
+      _attributes = createVariantParams.attributes!.map(attribute => new VariantAttributeItem(attribute));
+
+      const {attributes, ...rest} = createVariantParams;
+      _createVariantParams = rest;
+
+      this.attributes = _attributes;
+    }
+
+    Object.assign(this, _createVariantParams);
   }
 }
 
@@ -26,6 +54,7 @@ export interface IPatchVariantParams {
   product?: string;
   description?: string;
   image?: string;
+  attributes?: IVariantAttributeItem[];
 }
 
 export class PatchVariantParams implements IPatchVariantParams {
@@ -33,9 +62,22 @@ export class PatchVariantParams implements IPatchVariantParams {
   public product?: string;
   public description?: string;
   public image?: string;
+  public attributes?: IVariantAttributeItem[];
 
-  constructor(iPatchVariantParams: IPatchVariantParams) {
-    Object.assign(this, iPatchVariantParams);
+  constructor(patchVariantParams: IPatchVariantParams) {
+    let _patchVariantParams = patchVariantParams;
+    let _attributes: VariantAttributeItem[] | null = null;
+
+    if (patchVariantParams.attributes) {
+      _attributes = patchVariantParams.attributes!.map(attribute => new VariantAttributeItem(attribute));
+
+      const {attributes, ...rest} = patchVariantParams;
+      _patchVariantParams = rest;
+
+      this.attributes = _attributes;
+    }
+
+    Object.assign(this, _patchVariantParams);
   }
 }
 
