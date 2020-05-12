@@ -23,6 +23,7 @@ export interface ICreateVariantParams {
   description?: string;
   image?: string;
   attributes?: IVariantAttributeItem[];
+  sku?: string;
 }
 
 export class CreateVariantParams implements ICreateVariantParams {
@@ -31,6 +32,7 @@ export class CreateVariantParams implements ICreateVariantParams {
   public description?: string;
   public image?: string;
   public attributes?: IVariantAttributeItem[];
+  public sku?: string;
 
   constructor(createVariantParams: ICreateVariantParams) {
     let _createVariantParams = createVariantParams;
@@ -55,6 +57,7 @@ export interface IPatchVariantParams {
   description?: string;
   image?: string;
   attributes?: IVariantAttributeItem[];
+  sku?: string;
 }
 
 export class PatchVariantParams implements IPatchVariantParams {
@@ -63,6 +66,7 @@ export class PatchVariantParams implements IPatchVariantParams {
   public description?: string;
   public image?: string;
   public attributes?: IVariantAttributeItem[];
+  public sku?: string;
 
   constructor(patchVariantParams: IPatchVariantParams) {
     let _patchVariantParams = patchVariantParams;

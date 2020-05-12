@@ -9,4 +9,5 @@ export class Variant {
   public description?: string;
   public image?: string;
   public attributes?: VariantAttribute[];
+  public sku?: string;
 }

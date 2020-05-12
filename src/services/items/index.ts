@@ -7,12 +7,18 @@ export interface ICreateItemParams {
   name: string;
   description?: string;
   image?: string;
+  product: string;
+  variant?: string;
+  serialNumber?: string;
 }
 
 export class CreateItemParams implements ICreateItemParams {
   public name: string;
   public description?: string;
   public image?: string;
+  public product: string;
+  public variant?: string;
+  public serialNumber?: string;
 
   constructor(createItemParams: ICreateItemParams) {
     Object.assign(this, createItemParams);
@@ -23,12 +29,14 @@ export interface IPatchItemParams {
   name?: string;
   description?: string;
   image?: string;
+  serialNumber?: string;
 }
 
 export class PatchItemParams implements IPatchItemParams {
   public name?: string;
   public description?: string;
   public image?: string;
+  public serialNumber?: string;
 
   constructor(patchItemParams: IPatchItemParams) {
     Object.assign(this, patchItemParams);

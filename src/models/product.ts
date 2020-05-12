@@ -8,5 +8,6 @@ export class Product {
   public category: Category;
   public description?: string;
   public image?: string;
+  public upc?: string;
   public attributes?: ProductAttribute[];
 }

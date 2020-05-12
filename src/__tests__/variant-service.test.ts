@@ -84,6 +84,9 @@ describe('Variants Service Test', () => {
             createdItem = await supplyChainClient.variants.create({
                 name: itemName,
                 product: createdProduct!.id,
+                sku: Math.floor((Math.random() + 1) * 1000)
+                    .toString()
+                    .padStart(4, '0'),
                 attributes: [{
                     attribute: createdProductAttribute!.id,
                     value: 'test1',
