@@ -1,6 +1,6 @@
 import { Expose, Type } from 'class-transformer';
-import {Category} from './category';
-import {ProductAttribute} from './product-attribute';
+import { Category } from './category';
+import { ProductAttribute } from './product-attribute';
 
 export class Product {
   public id: string;
