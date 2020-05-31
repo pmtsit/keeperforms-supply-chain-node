@@ -15,6 +15,7 @@ let itemDescription: string;
 
 let createdProduct: Product | null = null;
 let createdProductAttribute: ProductAttribute | null = null;
+let createdProductAttribute2: ProductAttribute | null = null;
 let createdVariantAttribute: VariantAttribute | null = null;
 
 describe('Variants Service Test', () => {
@@ -98,11 +99,25 @@ describe('Variants Service Test', () => {
 
       expect(createdItem).toHaveProperty('name', itemName);
       expect(createdItem).toHaveProperty('description', itemDescription);
+      expect(createdItem?.attributes![0]).toHaveProperty('value', 'test1');
     }
   }, 10000);
 
+  test('Create product attribute 2', async () => {
+    const attributeName =
+        'product attribute ' +
+        Math.floor((Math.random() + 1) * 1000)
+            .toString()
+            .padStart(4, '0');
+    createdProductAttribute2 = await supplyChainClient.productAttributes.create({
+      name: attributeName,
+    });
+
+    expect(createdProductAttribute2).toHaveProperty('name', attributeName);
+  }, 10000);
+
   test('Create variant attribute', async () => {
-    if (!createdItem || !createdProductAttribute) {
+    if (!createdItem || !createdProductAttribute2) {
       throw new Error('cannot run test - createdItem or createdProductAttribute are null');
     } else {
       const attributeValue =
@@ -112,17 +127,21 @@ describe('Variants Service Test', () => {
           .padStart(4, '0');
       createdVariantAttribute = await supplyChainClient.variantAttributes.create({
         variant: createdItem!.id,
-        attribute: createdProductAttribute!.id,
+        attribute: createdProductAttribute2!.id,
         value: attributeValue,
       });
 
       expect(createdVariantAttribute).toHaveProperty('value', attributeValue);
+
+      createdItem = await supplyChainClient.variants.get(createdItem.id);
+
+      expect(createdItem?.attributes).toHaveLength(2);
     }
   }, 10000);
 
   test('Patch variant', async () => {
-    if (!createdItem || !createdVariantAttribute) {
-      throw new Error('cannot run test - createdItem or createdVariantAttribute are null');
+    if (!createdItem) {
+      throw new Error('cannot run test - createdItem are null');
     } else {
       itemDescription = 'Neo-Description from the test-suite';
       createdItem = await supplyChainClient.variants.patch(createdItem.id, {
@@ -156,6 +175,18 @@ describe('Variants Service Test', () => {
     }
   }, 10000);
 
+  test('Delete other variant attribute', async () => {
+    if (!createdItem) {
+      throw new Error('cannot run test - createdItem is null');
+    } else {
+      const variantAttributeToDelete = createdItem.attributes![0].id;
+      const deleteResult = await supplyChainClient.variantAttributes.delete(variantAttributeToDelete);
+
+      expect(deleteResult).toHaveProperty('id', variantAttributeToDelete);
+      expect(deleteResult).toHaveProperty('result', true);
+    }
+  }, 10000);
+
   test('Delete variant', async () => {
     if (!createdItem) {
       throw new Error('cannot run test - createdItem is null');
@@ -163,6 +194,28 @@ describe('Variants Service Test', () => {
       const deleteResult = await supplyChainClient.variants.delete(createdItem.id);
 
       expect(deleteResult).toHaveProperty('id', createdItem.id);
+      expect(deleteResult).toHaveProperty('result', true);
+    }
+  }, 10000);
+
+  test('Delete product attribute 2', async () => {
+    if (!createdProductAttribute2) {
+      throw new Error('cannot run test - createdProductAttribute2 is null');
+    } else {
+      const deleteResult = await supplyChainClient.productAttributes.delete(createdProductAttribute2.id);
+
+      expect(deleteResult).toHaveProperty('id', createdProductAttribute2.id);
+      expect(deleteResult).toHaveProperty('result', true);
+    }
+  }, 10000);
+
+  test('Delete product attribute', async () => {
+    if (!createdProductAttribute) {
+      throw new Error('cannot run test - createdProductAttribute is null');
+    } else {
+      const deleteResult = await supplyChainClient.productAttributes.delete(createdProductAttribute.id);
+
+      expect(deleteResult).toHaveProperty('id', createdProductAttribute.id);
       expect(deleteResult).toHaveProperty('result', true);
     }
   }, 10000);

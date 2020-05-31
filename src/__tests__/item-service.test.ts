@@ -15,7 +15,6 @@ let itemDescription: string;
 
 let createdProduct: Product | null = null;
 let createdProductAttribute: ProductAttribute | null = null;
-let createdVariantAttribute: VariantAttribute | null = null;
 let createdVariant: Variant | null = null;
 
 describe('Items Service Test', () => {
@@ -102,25 +101,6 @@ describe('Items Service Test', () => {
     }
   }, 10000);
 
-  test('Create variant attribute', async () => {
-    if (!createdVariant || !createdProductAttribute) {
-      throw new Error('cannot run test - createdVariant or createdProductAttribute are null');
-    } else {
-      const attributeValue =
-        'variant attribute ' +
-        Math.floor((Math.random() + 1) * 1000)
-          .toString()
-          .padStart(4, '0');
-      createdVariantAttribute = await supplyChainClient.variantAttributes.create({
-        variant: createdVariant!.id,
-        attribute: createdProductAttribute!.id,
-        value: attributeValue,
-      });
-
-      expect(createdVariantAttribute).toHaveProperty('value', attributeValue);
-    }
-  }, 10000);
-
   test('Create item', async () => {
     itemName =
       'item ' +
@@ -179,12 +159,13 @@ describe('Items Service Test', () => {
   }, 10000);
 
   test('Delete item attribute', async () => {
-    if (!createdVariantAttribute) {
-      throw new Error('cannot run test - createdVariantAttribute is null');
+    if (!createdVariant) {
+      throw new Error('cannot run test - createdVariant is null');
     } else {
-      const deleteResult = await supplyChainClient.variantAttributes.delete(createdVariantAttribute.id);
+      const variantAttributeId = createdVariant.attributes![0].id;
+      const deleteResult = await supplyChainClient.variantAttributes.delete(variantAttributeId);
 
-      expect(deleteResult).toHaveProperty('id', createdVariantAttribute.id);
+      expect(deleteResult).toHaveProperty('id', variantAttributeId);
       expect(deleteResult).toHaveProperty('result', true);
     }
   }, 10000);
