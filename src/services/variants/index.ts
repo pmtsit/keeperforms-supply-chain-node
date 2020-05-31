@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import BaseService from '../base';
-import {Variant} from '../../models/variant';
+import { Variant } from '../../models/variant';
 import { classToPlain, Expose, plainToClass } from 'class-transformer';
 
 export interface IVariantAttributeItem {
@@ -41,7 +41,7 @@ export class CreateVariantParams implements ICreateVariantParams {
     if (createVariantParams.attributes) {
       _attributes = createVariantParams.attributes!.map(attribute => new VariantAttributeItem(attribute));
 
-      const {attributes, ...rest} = createVariantParams;
+      const { attributes, ...rest } = createVariantParams;
       _createVariantParams = rest;
 
       this.attributes = _attributes;
@@ -75,7 +75,7 @@ export class PatchVariantParams implements IPatchVariantParams {
     if (patchVariantParams.attributes) {
       _attributes = patchVariantParams.attributes!.map(attribute => new VariantAttributeItem(attribute));
 
-      const {attributes, ...rest} = patchVariantParams;
+      const { attributes, ...rest } = patchVariantParams;
       _patchVariantParams = rest;
 
       this.attributes = _attributes;

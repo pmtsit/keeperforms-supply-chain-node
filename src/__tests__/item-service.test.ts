@@ -1,9 +1,9 @@
 import SupplyChainClient from '../index';
 import { Item } from '../models/item';
-import {Product} from '../models/product';
-import {ProductAttribute} from '../models/product-attribute';
-import {VariantAttribute} from '../models/variant-attribute';
-import {Variant} from '../models/variant';
+import { Product } from '../models/product';
+import { ProductAttribute } from '../models/product-attribute';
+import { VariantAttribute } from '../models/variant-attribute';
+import { Variant } from '../models/variant';
 
 let supplyChainClient: SupplyChainClient;
 let items: Item[] = [];
@@ -46,13 +46,12 @@ describe('Items Service Test', () => {
     originalNumberOfItems = items.length;
   }, 10000);
 
-
   test('Create product', async () => {
     const productName =
-        'product for item ' +
-        Math.floor((Math.random() + 1) * 1000)
-            .toString()
-            .padStart(4, '0');
+      'product for item ' +
+      Math.floor((Math.random() + 1) * 1000)
+        .toString()
+        .padStart(4, '0');
     createdProduct = await supplyChainClient.products.create({
       name: productName,
     });
@@ -62,10 +61,10 @@ describe('Items Service Test', () => {
 
   test('Create product attribute', async () => {
     const attributeName =
-        'product attribute ' +
-        Math.floor((Math.random() + 1) * 1000)
-            .toString()
-            .padStart(4, '0');
+      'product attribute ' +
+      Math.floor((Math.random() + 1) * 1000)
+        .toString()
+        .padStart(4, '0');
     createdProductAttribute = await supplyChainClient.productAttributes.create({
       name: attributeName,
     });
@@ -78,21 +77,23 @@ describe('Items Service Test', () => {
       throw new Error('cannot run test - createdProduct or createdProductAttribute are null');
     } else {
       const variantName =
-          'variant ' +
-          Math.floor((Math.random() + 1) * 1000)
-              .toString()
-              .padStart(4, '0');
+        'variant ' +
+        Math.floor((Math.random() + 1) * 1000)
+          .toString()
+          .padStart(4, '0');
       const variantDescription = 'A variant created from the test suite';
       createdVariant = await supplyChainClient.variants.create({
         name: variantName,
         product: createdProduct!.id,
         sku: Math.floor((Math.random() + 1) * 1000)
-            .toString()
-            .padStart(4, '0'),
-        attributes: [{
-          attribute: createdProductAttribute!.id,
-          value: 'test1',
-        }],
+          .toString()
+          .padStart(4, '0'),
+        attributes: [
+          {
+            attribute: createdProductAttribute!.id,
+            value: 'test1',
+          },
+        ],
         description: variantDescription,
       });
 
@@ -106,10 +107,10 @@ describe('Items Service Test', () => {
       throw new Error('cannot run test - createdVariant or createdProductAttribute are null');
     } else {
       const attributeValue =
-          'variant attribute ' +
-          Math.floor((Math.random() + 1) * 1000)
-              .toString()
-              .padStart(4, '0');
+        'variant attribute ' +
+        Math.floor((Math.random() + 1) * 1000)
+          .toString()
+          .padStart(4, '0');
       createdVariantAttribute = await supplyChainClient.variantAttributes.create({
         variant: createdVariant!.id,
         attribute: createdProductAttribute!.id,
@@ -119,7 +120,6 @@ describe('Items Service Test', () => {
       expect(createdVariantAttribute).toHaveProperty('value', attributeValue);
     }
   }, 10000);
-
 
   test('Create item', async () => {
     itemName =
@@ -134,8 +134,8 @@ describe('Items Service Test', () => {
       product: createdProduct!.id,
       variant: createdVariant!.id,
       serialNumber: Math.floor((Math.random() + 1) * 1000)
-          .toString()
-          .padStart(10, '0'),
+        .toString()
+        .padStart(10, '0'),
     });
 
     expect(createdItem).toHaveProperty('name', itemName);
@@ -177,7 +177,6 @@ describe('Items Service Test', () => {
       expect(deleteResult).toHaveProperty('result', true);
     }
   }, 10000);
-
 
   test('Delete item attribute', async () => {
     if (!createdVariantAttribute) {

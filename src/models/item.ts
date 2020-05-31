@@ -1,6 +1,6 @@
 import { Expose, Type } from 'class-transformer';
-import {Product} from './product';
-import {Variant} from './variant';
+import { Product } from './product';
+import { Variant } from './variant';
 
 export class Item {
   public id: string;
