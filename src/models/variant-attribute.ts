@@ -1,7 +1,7 @@
 import { Expose, Type } from 'class-transformer';
-import {Category} from './category';
-import {Variant} from './variant';
-import {ProductAttribute} from './product-attribute';
+import { Category } from './category';
+import { Variant } from './variant';
+import { ProductAttribute } from './product-attribute';
 
 export class VariantAttribute {
   public id: string;

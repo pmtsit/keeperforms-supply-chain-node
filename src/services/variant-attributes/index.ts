@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import BaseService from '../base';
-import {VariantAttribute} from '../../models/variant-attribute';
+import { VariantAttribute } from '../../models/variant-attribute';
 import { classToPlain, Expose, plainToClass } from 'class-transformer';
 
 export interface ICreateVariantAttributeParams {

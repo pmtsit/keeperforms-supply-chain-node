@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import BaseService from '../base';
-import {ProductAttribute} from '../../models/product-attribute';
+import { ProductAttribute } from '../../models/product-attribute';
 import { classToPlain, Expose, plainToClass } from 'class-transformer';
 
 export interface ICreateProductAttributeParams {
