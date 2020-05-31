@@ -105,10 +105,10 @@ describe('Variants Service Test', () => {
 
   test('Create product attribute 2', async () => {
     const attributeName =
-        'product attribute ' +
-        Math.floor((Math.random() + 1) * 1000)
-            .toString()
-            .padStart(4, '0');
+      'product attribute ' +
+      Math.floor((Math.random() + 1) * 1000)
+        .toString()
+        .padStart(4, '0');
     createdProductAttribute2 = await supplyChainClient.productAttributes.create({
       name: attributeName,
     });
