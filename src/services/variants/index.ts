@@ -2,6 +2,8 @@ import { AxiosInstance } from 'axios';
 import BaseService from '../base';
 import { Variant } from '../../models/variant';
 import { classToPlain, Expose, plainToClass } from 'class-transformer';
+import {ListResult} from '../../models/list-result';
+import {Warehouse} from '../../models/warehouse';
 
 export interface IVariantAttributeItem {
   attribute: string;
@@ -90,12 +92,12 @@ export default class VariantService extends BaseService<Variant> {
     super(axios, '/variants');
   }
 
-  public async list(offset?: number, limit?: number): Promise<Variant[]> {
+  public async list(offset?: number, limit?: number): Promise<ListResult<Variant>> {
     const result = await super._list(offset, limit);
 
-    const variants = result ? plainToClass(Variant, result) : [];
+    const variants = result ? plainToClass(Variant, result.items) : [];
 
-    return variants;
+    return new ListResult<Variant>(variants, result.total);
   }
 
   public async get(id: string): Promise<Variant | null> {

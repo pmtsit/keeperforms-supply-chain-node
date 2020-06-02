@@ -2,6 +2,8 @@ import { AxiosInstance } from 'axios';
 import BaseService from '../base';
 import { ProductAttribute } from '../../models/product-attribute';
 import { classToPlain, Expose, plainToClass } from 'class-transformer';
+import {ListResult} from '../../models/list-result';
+import {Warehouse} from '../../models/warehouse';
 
 export interface ICreateProductAttributeParams {
   name: string;
@@ -32,12 +34,12 @@ export default class ProductAttributeService extends BaseService<ProductAttribut
     super(axios, '/product-attributes');
   }
 
-  public async list(offset?: number, limit?: number): Promise<ProductAttribute[]> {
+  public async list(offset?: number, limit?: number): Promise<ListResult<ProductAttribute>> {
     const result = await super._list(offset, limit);
 
-    const productAttributes = result ? plainToClass(ProductAttribute, result) : [];
+    const productAttributes = result ? plainToClass(ProductAttribute, result.items) : [];
 
-    return productAttributes;
+    return new ListResult<ProductAttribute>(productAttributes, result.total);
   }
 
   public async get(id: string): Promise<ProductAttribute | null> {

@@ -2,6 +2,8 @@ import { AxiosInstance } from 'axios';
 import { Item } from '../../models/item';
 import BaseService from '../base';
 import { classToPlain, Expose, plainToClass } from 'class-transformer';
+import {ListResult} from '../../models/list-result';
+import {Warehouse} from '../../models/warehouse';
 
 export interface ICreateItemParams {
   name: string;
@@ -48,12 +50,12 @@ export default class ItemService extends BaseService<Item> {
     super(axios, '/items');
   }
 
-  public async list(offset?: number, limit?: number): Promise<Item[]> {
+  public async list(offset?: number, limit?: number): Promise<ListResult<Item>> {
     const result = await super._list(offset, limit);
 
-    const items = result ? plainToClass(Item, result) : [];
+    const items = result ? plainToClass(Item, result.items) : [];
 
-    return items;
+    return new ListResult<Item>(items, result.total);
   }
 
   public async get(id: string): Promise<Item | null> {

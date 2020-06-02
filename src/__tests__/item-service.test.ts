@@ -41,7 +41,7 @@ describe('Items Service Test', () => {
   }, 10000);
 
   test('Get Items', async () => {
-    items = await supplyChainClient.items.list();
+    items = (await supplyChainClient.items.list()).items;
     originalNumberOfItems = items.length;
   }, 10000);
 

@@ -37,8 +37,13 @@ describe('Products Service Test', () => {
     expect(supplyChainClient).toBeDefined();
   }, 10000);
 
+  test('Get Products with limit 3 and offset 1', async () => {
+    const _p = (await supplyChainClient.products.list(1, 3)).items;
+    console.log(`get ${_p.length} products`);
+  }, 10000);
+
   test('Get Products', async () => {
-    products = await supplyChainClient.products.list();
+    products = (await supplyChainClient.products.list()).items;
     originalNumberOfItems = products.length;
   }, 10000);
 
