@@ -33,7 +33,9 @@ describe('Warehouses Service Test', () => {
   }, 10000);
 
   test('Get Warehouses', async () => {
-    warehouses = (await supplyChainClient.warehouses.list()).items;
+    const _result = await supplyChainClient.warehouses.list();
+    console.log(JSON.stringify(_result));
+    warehouses = _result.items;
     originalNumberOfItems = warehouses.length;
   }, 10000);
 

@@ -85,7 +85,10 @@ export default abstract class BaseService<T> {
       .then(res => {
         this.debug(`********** total from header = ${res.headers['x-total-count'] || 'does not exist'}`);
         if (res.headers['x-total-count']) {
-          total += res.headers['x-total-count'];
+          const parsedTotal = parseInt(res.headers['x-total-count'], 10);
+          if (!isNaN(parsedTotal)) {
+            total = parsedTotal;
+          }
         }
 
         return res.data as T[];
