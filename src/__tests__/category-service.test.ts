@@ -34,7 +34,7 @@ describe('Categories Service Test', () => {
   }, 10000);
 
   test('Get Categories', async () => {
-    categories = await supplyChainClient.categories.list();
+    categories = (await supplyChainClient.categories.list()).items;
     originalNumberOfItems = categories.length;
   }, 10000);
 

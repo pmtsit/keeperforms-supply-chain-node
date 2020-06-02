@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios';
 import createDebug, { Debugger } from 'debug';
 import { IDeleteResult } from '../../models/delete-result';
+import {ListResult} from '../../models/list-result';
 
 export default abstract class BaseService<T> {
   protected readonly axios?: AxiosInstance;
@@ -58,9 +59,9 @@ export default abstract class BaseService<T> {
     return item;
   }
 
-  protected async _list(offset?: number, limit?: number, filter?: any): Promise<T[]> {
+  protected async _list(offset?: number, limit?: number, filter?: any): Promise<ListResult<T>> {
     if (!this.axios) {
-      return [];
+      return new ListResult<T>();
     }
 
     let params: any = {
@@ -77,10 +78,16 @@ export default abstract class BaseService<T> {
 
     this.debug(`********** params = ${params ? JSON.stringify(params) : 'none'}`);
 
+    let total: number = 0;
+
     const items = await this.axios
       .get(this.endpoint, { params })
       .then(res => {
         this.debug(`********** total from header = ${res.headers['x-total-count'] || 'does not exist'}`);
+        if (res.headers['x-total-count']) {
+          total += res.headers['x-total-count'];
+        }
+
         return res.data as T[];
       })
       .catch(err => {
@@ -90,7 +97,7 @@ export default abstract class BaseService<T> {
 
     this.debug(`got ${items.length} items`);
 
-    return items;
+    return new ListResult<T>(items, total);
   }
 
   protected async _create(params: any): Promise<T | null> {

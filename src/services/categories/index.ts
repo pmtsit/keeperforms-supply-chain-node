@@ -2,6 +2,8 @@ import { AxiosInstance } from 'axios';
 import { Category } from '../../models/category';
 import BaseService from '../base';
 import { classToPlain, Expose, plainToClass } from 'class-transformer';
+import {ListResult} from '../../models/list-result';
+import {Warehouse} from '../../models/warehouse';
 
 export interface ICreateCategoryParams {
   name: string;
@@ -44,12 +46,12 @@ export default class CategoryService extends BaseService<Category> {
     super(axios, '/categories');
   }
 
-  public async list(offset?: number, limit?: number): Promise<Category[]> {
+  public async list(offset?: number, limit?: number): Promise<ListResult<Category>> {
     const result = await super._list(offset, limit);
 
-    const categories = result ? plainToClass(Category, result) : [];
+    const categories = result ? plainToClass(Category, result.items) : [];
 
-    return categories;
+    return new ListResult<Category>(categories, result.total);
   }
 
   public async get(id: string): Promise<Category | null> {

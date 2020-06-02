@@ -33,7 +33,7 @@ describe('Warehouses Service Test', () => {
   }, 10000);
 
   test('Get Warehouses', async () => {
-    warehouses = await supplyChainClient.warehouses.list();
+    warehouses = (await supplyChainClient.warehouses.list()).items;
     originalNumberOfItems = warehouses.length;
   }, 10000);
 

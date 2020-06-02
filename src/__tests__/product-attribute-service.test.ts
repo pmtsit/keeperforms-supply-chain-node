@@ -32,7 +32,7 @@ describe('ProductAttributes Service Test', () => {
   }, 10000);
 
   test('Get ProductAttributes', async () => {
-    productAttributes = await supplyChainClient.productAttributes.list();
+    productAttributes = (await supplyChainClient.productAttributes.list()).items;
     originalNumberOfItems = productAttributes.length;
   }, 10000);
 

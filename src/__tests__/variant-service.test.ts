@@ -42,7 +42,7 @@ describe('Variants Service Test', () => {
   }, 10000);
 
   test('Get Variants', async () => {
-    variants = await supplyChainClient.variants.list();
+    variants = (await supplyChainClient.variants.list()).items;
     originalNumberOfItems = variants.length;
   }, 10000);
 
