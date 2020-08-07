@@ -28,7 +28,7 @@
   "dependencies": {
     "@types/node": "^12.11.7",
     "axios": "^0.19.0",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "custom-error-generator": "^7.0.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
